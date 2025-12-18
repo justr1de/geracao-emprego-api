@@ -4,9 +4,7 @@
   "description": "API Serverless do Portal Geração Emprego - Rondônia",
   "type": "module",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "vercel build",
-    "deploy": "vercel --prod"
+    "dev": "vercel dev"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0"
@@ -15,6 +13,6 @@
     "vercel": "^37.0.0"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": "18.x"
   }
 }
