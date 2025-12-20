@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   switch (req.method) {
     case 'GET':
@@ -17,13 +17,13 @@ export default async function handler(req, res) {
 // Listar editais com filtros
 async function getEditais(req, res) {
   try {
-    const { 
+    const {
       status,
       orgao,
       municipio,
       busca,
-      page = 1, 
-      limit = 20 
+      page = 1,
+      limit = 20,
     } = req.query;
 
     let query = supabase
@@ -31,9 +31,9 @@ async function getEditais(req, res) {
       .select('*', { count: 'exact' });
 
     // Aplicar filtros
-    if (status) query = query.eq('status', status);
-    if (orgao) query = query.eq('orgao', orgao);
-    if (busca) query = query.ilike('titulo', `%${busca}%`);
+    if (status) { query = query.eq('status', status); }
+    if (orgao) { query = query.eq('orgao', orgao); }
+    if (busca) { query = query.ilike('titulo', `%${busca}%`); }
 
     // Paginação
     const offset = (parseInt(page) - 1) * parseInt(limit);
@@ -53,7 +53,7 @@ async function getEditais(req, res) {
       total: count,
       page: parseInt(page),
       limit: parseInt(limit),
-      totalPages: Math.ceil(count / parseInt(limit))
+      totalPages: Math.ceil(count / parseInt(limit)),
     });
 
   } catch (error) {
@@ -80,7 +80,7 @@ async function createEdital(req, res) {
       municipios,
       cursos,
       links,
-      imagem_url
+      imagem_url,
     } = req.body;
 
     // Validações
@@ -101,7 +101,7 @@ async function createEdital(req, res) {
         cursos,
         links,
         imagem_url,
-        created_by: user.id
+        created_by: user.id,
       }])
       .select()
       .single();

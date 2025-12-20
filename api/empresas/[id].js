@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   const { id } = req.query;
 
@@ -44,7 +44,7 @@ async function getEmpresa(req, res, id) {
 
     return successResponse(res, {
       ...empresa,
-      vagas: vagas || []
+      vagas: vagas || [],
     });
 
   } catch (error) {

@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   switch (req.method) {
     case 'GET':
@@ -17,14 +17,14 @@ export default async function handler(req, res) {
 // Listar cursos com filtros
 async function getCursos(req, res) {
   try {
-    const { 
-      categoria, 
+    const {
+      categoria,
       cidade,
       modalidade,
       gratuito,
       busca,
-      page = 1, 
-      limit = 20 
+      page = 1,
+      limit = 20,
     } = req.query;
 
     let query = supabase
@@ -32,11 +32,11 @@ async function getCursos(req, res) {
       .select('*', { count: 'exact' });
 
     // Aplicar filtros
-    if (categoria) query = query.eq('categoria', categoria);
-    if (cidade) query = query.eq('cidade', cidade);
-    if (modalidade) query = query.eq('modalidade', modalidade);
-    if (gratuito === 'true') query = query.eq('custo', 'Grátis');
-    if (busca) query = query.ilike('nome', `%${busca}%`);
+    if (categoria) { query = query.eq('categoria', categoria); }
+    if (cidade) { query = query.eq('cidade', cidade); }
+    if (modalidade) { query = query.eq('modalidade', modalidade); }
+    if (gratuito === 'true') { query = query.eq('custo', 'Grátis'); }
+    if (busca) { query = query.ilike('nome', `%${busca}%`); }
 
     // Paginação
     const offset = (parseInt(page) - 1) * parseInt(limit);
@@ -56,7 +56,7 @@ async function getCursos(req, res) {
       total: count,
       page: parseInt(page),
       limit: parseInt(limit),
-      totalPages: Math.ceil(count / parseInt(limit))
+      totalPages: Math.ceil(count / parseInt(limit)),
     });
 
   } catch (error) {
@@ -87,7 +87,7 @@ async function createCurso(req, res) {
       organizador,
       imagem_url,
       requisitos,
-      publico_alvo
+      publico_alvo,
     } = req.body;
 
     // Validações
@@ -112,7 +112,7 @@ async function createCurso(req, res) {
         imagem_url,
         requisitos,
         publico_alvo,
-        created_by: user.id
+        created_by: user.id,
       }])
       .select()
       .single();

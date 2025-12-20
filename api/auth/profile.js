@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   // Verificar autenticação
   const user = await getUser(req);
@@ -14,9 +14,9 @@ export default async function handler(req, res) {
     return getProfile(req, res, user);
   } else if (req.method === 'PUT' || req.method === 'PATCH') {
     return updateProfile(req, res, user);
-  } else {
-    return errorResponse(res, 405, 'Método não permitido');
   }
+  return errorResponse(res, 405, 'Método não permitido');
+
 }
 
 async function getProfile(req, res, user) {
@@ -46,8 +46,8 @@ async function getProfile(req, res, user) {
     }
 
     return successResponse(res, {
-      user: user,
-      perfil: perfil
+      user,
+      perfil,
     });
 
   } catch (error) {

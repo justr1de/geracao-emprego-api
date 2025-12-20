@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   const user = await getUser(req);
   if (!user) {
@@ -64,7 +64,7 @@ async function candidatar(req, res, user) {
         vaga_id,
         candidato_id: user.id,
         mensagem,
-        status: 'pendente'
+        status: 'pendente',
       }])
       .select()
       .single();
@@ -97,7 +97,7 @@ async function minhasCandidaturas(req, res, user) {
       .select('*, vagas(titulo, cidade, salario, empresa_id, empresas(nome, logo_url))', { count: 'exact' })
       .eq('candidato_id', user.id);
 
-    if (status) query = query.eq('status', status);
+    if (status) { query = query.eq('status', status); }
 
     const offset = (parseInt(page) - 1) * parseInt(limit);
     query = query.range(offset, offset + parseInt(limit) - 1);
@@ -113,7 +113,7 @@ async function minhasCandidaturas(req, res, user) {
       candidaturas: data,
       total: count,
       page: parseInt(page),
-      limit: parseInt(limit)
+      limit: parseInt(limit),
     });
 
   } catch (error) {

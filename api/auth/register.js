@@ -2,7 +2,7 @@ import { supabase, errorResponse, successResponse, handleCors } from '../../lib/
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   if (req.method !== 'POST') {
     return errorResponse(res, 405, 'Método não permitido');
@@ -18,14 +18,14 @@ export default async function handler(req, res) {
 
     // Criar usuário no Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: email,
+      email,
       password: senha,
       options: {
         data: {
-          nome: nome,
-          tipo: tipo
-        }
-      }
+          nome,
+          tipo,
+        },
+      },
     });
 
     if (authError) {
@@ -46,14 +46,14 @@ export default async function handler(req, res) {
         .insert([{
           user_id: authData.user.id,
           nome_completo: nome,
-          telefone: telefone,
-          cpf: cpf,
-          email: email,
-          genero: genero
+          telefone,
+          cpf,
+          email,
+          genero,
         }])
         .select()
         .single();
-      
+
       perfilData = data;
       perfilError = error;
     } else if (tipo === 'empresa') {
@@ -61,13 +61,13 @@ export default async function handler(req, res) {
         .from('empresas')
         .insert([{
           user_id: authData.user.id,
-          nome: nome,
-          email: email,
-          telefone: telefone
+          nome,
+          email,
+          telefone,
         }])
         .select()
         .single();
-      
+
       perfilData = data;
       perfilError = error;
     }
@@ -80,7 +80,7 @@ export default async function handler(req, res) {
     return successResponse(res, {
       user: authData.user,
       perfil: perfilData,
-      session: authData.session
+      session: authData.session,
     }, 'Cadastro realizado com sucesso! Verifique seu email para confirmar a conta.');
 
   } catch (error) {

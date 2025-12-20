@@ -2,7 +2,7 @@ import { supabase, errorResponse, successResponse, handleCors } from '../../lib/
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   if (req.method !== 'POST') {
     return errorResponse(res, 405, 'Método não permitido');

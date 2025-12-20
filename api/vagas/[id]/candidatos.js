@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   const user = await getUser(req);
   if (!user) {
@@ -36,7 +36,7 @@ async function getCandidatos(req, res, vaga_id) {
       .select('*, candidatos:candidato_id(nome_completo, email, telefone, cidade, estado)', { count: 'exact' })
       .eq('vaga_id', vaga_id);
 
-    if (status) query = query.eq('status', status);
+    if (status) { query = query.eq('status', status); }
 
     const offset = (parseInt(page) - 1) * parseInt(limit);
     query = query.range(offset, offset + parseInt(limit) - 1);
@@ -52,7 +52,7 @@ async function getCandidatos(req, res, vaga_id) {
       candidatos: data,
       total: count,
       page: parseInt(page),
-      limit: parseInt(limit)
+      limit: parseInt(limit),
     });
 
   } catch (error) {
@@ -77,10 +77,10 @@ async function atualizarStatusCandidato(req, res, vaga_id) {
 
     const { data, error } = await supabase
       .from('candidaturas')
-      .update({ 
-        status, 
+      .update({
+        status,
         feedback,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .eq('id', candidatura_id)
       .eq('vaga_id', vaga_id)

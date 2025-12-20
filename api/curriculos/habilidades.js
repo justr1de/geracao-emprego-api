@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   const user = await getUser(req);
   if (!user) {
@@ -55,7 +55,7 @@ async function addHabilidade(req, res, user) {
         candidato_id: user.id,
         categoria,
         nome,
-        nivel
+        nivel,
       }])
       .select()
       .single();

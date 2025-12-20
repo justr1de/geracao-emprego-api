@@ -2,7 +2,7 @@ import { supabase, errorResponse, successResponse, handleCors } from '../../lib/
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   if (req.method !== 'POST') {
     return errorResponse(res, 405, 'Método não permitido');
@@ -18,8 +18,8 @@ export default async function handler(req, res) {
 
     // Autenticar usuário
     const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: senha
+      email,
+      password: senha,
     });
 
     if (error) {
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
     return successResponse(res, {
       user: data.user,
       session: data.session,
-      perfil: perfil
+      perfil,
     }, 'Login realizado com sucesso');
 
   } catch (error) {

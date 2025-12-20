@@ -2,7 +2,7 @@ import { supabaseAdmin, getUser, errorResponse, successResponse, handleCors } fr
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   const user = await getUser(req);
   if (!user) {
@@ -17,13 +17,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { 
+    const {
       tipo,
       user_id,
       data_inicio,
       data_fim,
-      page = 1, 
-      limit = 50 
+      page = 1,
+      limit = 50,
     } = req.query;
 
     let query = supabaseAdmin
@@ -31,10 +31,10 @@ export default async function handler(req, res) {
       .select('*', { count: 'exact' });
 
     // Aplicar filtros
-    if (tipo) query = query.eq('tipo', tipo);
-    if (user_id) query = query.eq('user_id', user_id);
-    if (data_inicio) query = query.gte('created_at', data_inicio);
-    if (data_fim) query = query.lte('created_at', data_fim);
+    if (tipo) { query = query.eq('tipo', tipo); }
+    if (user_id) { query = query.eq('user_id', user_id); }
+    if (data_inicio) { query = query.gte('created_at', data_inicio); }
+    if (data_fim) { query = query.lte('created_at', data_fim); }
 
     // Paginação
     const offset = (parseInt(page) - 1) * parseInt(limit);
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
       total: count,
       page: parseInt(page),
       limit: parseInt(limit),
-      totalPages: Math.ceil(count / parseInt(limit))
+      totalPages: Math.ceil(count / parseInt(limit)),
     });
 
   } catch (error) {
@@ -74,7 +74,7 @@ export async function registrarLog(tipo, descricao, user_id, dados_adicionais = 
         user_id,
         dados: dados_adicionais,
         ip: dados_adicionais.ip || null,
-        user_agent: dados_adicionais.user_agent || null
+        user_agent: dados_adicionais.user_agent || null,
       }]);
   } catch (error) {
     console.error('Erro ao registrar log:', error);

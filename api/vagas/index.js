@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   switch (req.method) {
     case 'GET':
@@ -17,16 +17,16 @@ export default async function handler(req, res) {
 // Listar vagas com filtros
 async function getVagas(req, res) {
   try {
-    const { 
-      cidade, 
-      tipo, 
-      salario_min, 
-      salario_max, 
+    const {
+      cidade,
+      tipo,
+      salario_min,
+      salario_max,
       empresa_id,
       status = 'aberta',
       busca,
-      page = 1, 
-      limit = 20 
+      page = 1,
+      limit = 20,
     } = req.query;
 
     let query = supabase
@@ -34,13 +34,13 @@ async function getVagas(req, res) {
       .select('*, empresas(nome, logo_url)', { count: 'exact' });
 
     // Aplicar filtros
-    if (cidade) query = query.eq('cidade', cidade);
-    if (tipo) query = query.eq('tipo', tipo);
-    if (salario_min) query = query.gte('salario', parseFloat(salario_min));
-    if (salario_max) query = query.lte('salario', parseFloat(salario_max));
-    if (empresa_id) query = query.eq('empresa_id', empresa_id);
-    if (status) query = query.eq('status', status);
-    if (busca) query = query.ilike('titulo', `%${busca}%`);
+    if (cidade) { query = query.eq('cidade', cidade); }
+    if (tipo) { query = query.eq('tipo', tipo); }
+    if (salario_min) { query = query.gte('salario', parseFloat(salario_min)); }
+    if (salario_max) { query = query.lte('salario', parseFloat(salario_max)); }
+    if (empresa_id) { query = query.eq('empresa_id', empresa_id); }
+    if (status) { query = query.eq('status', status); }
+    if (busca) { query = query.ilike('titulo', `%${busca}%`); }
 
     // Paginação
     const offset = (parseInt(page) - 1) * parseInt(limit);
@@ -60,7 +60,7 @@ async function getVagas(req, res) {
       total: count,
       page: parseInt(page),
       limit: parseInt(limit),
-      totalPages: Math.ceil(count / parseInt(limit))
+      totalPages: Math.ceil(count / parseInt(limit)),
     });
 
   } catch (error) {
@@ -86,7 +86,7 @@ async function createVaga(req, res) {
       num_vagas,
       requisitos,
       beneficios,
-      empresa_id
+      empresa_id,
     } = req.body;
 
     // Validações
@@ -107,7 +107,7 @@ async function createVaga(req, res) {
         beneficios,
         empresa_id,
         status: 'aberta',
-        created_by: user.id
+        created_by: user.id,
       }])
       .select()
       .single();

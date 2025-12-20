@@ -2,7 +2,7 @@ import { errorResponse, successResponse, handleCors } from '../../lib/supabase.j
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   if (req.method !== 'GET') {
     return errorResponse(res, 405, 'Método não permitido');
@@ -29,12 +29,12 @@ function getSobre(res) {
     contato: {
       email: 'geracaoemprego@sedi.ro.gov.br',
       telefone: '(69) 3212-9400',
-      endereco: 'Palácio Rio Madeira, Porto Velho - RO'
+      endereco: 'Palácio Rio Madeira, Porto Velho - RO',
     },
     redes_sociais: {
       instagram: 'https://instagram.com/geracaoempregoro',
-      facebook: 'https://facebook.com/geracaoempregoro'
-    }
+      facebook: 'https://facebook.com/geracaoempregoro',
+    },
   });
 }
 
@@ -44,29 +44,29 @@ function getFaq(res) {
       {
         id: 1,
         pergunta: 'Como faço para me cadastrar?',
-        resposta: 'Clique no botão "Cadastrar" no topo da página e preencha seus dados. Você receberá um email de confirmação.'
+        resposta: 'Clique no botão "Cadastrar" no topo da página e preencha seus dados. Você receberá um email de confirmação.',
       },
       {
         id: 2,
         pergunta: 'Como posso atualizar meu currículo?',
-        resposta: 'Após fazer login, acesse "Meu Currículo" no menu e clique em "Editar" para atualizar suas informações.'
+        resposta: 'Após fazer login, acesse "Meu Currículo" no menu e clique em "Editar" para atualizar suas informações.',
       },
       {
         id: 3,
         pergunta: 'Como uma empresa pode publicar vagas?',
-        resposta: 'Empresas devem se cadastrar como pessoa jurídica. Após aprovação, terão acesso ao painel para publicar vagas.'
+        resposta: 'Empresas devem se cadastrar como pessoa jurídica. Após aprovação, terão acesso ao painel para publicar vagas.',
       },
       {
         id: 4,
         pergunta: 'Os cursos são gratuitos?',
-        resposta: 'A maioria dos cursos oferecidos através da plataforma são gratuitos, oferecidos pelo Governo do Estado e parceiros.'
+        resposta: 'A maioria dos cursos oferecidos através da plataforma são gratuitos, oferecidos pelo Governo do Estado e parceiros.',
       },
       {
         id: 5,
         pergunta: 'Como sei se fui selecionado para uma vaga?',
-        resposta: 'Você receberá notificações por email e também pode acompanhar o status das suas candidaturas no painel do trabalhador.'
-      }
-    ]
+        resposta: 'Você receberá notificações por email e também pode acompanhar o status das suas candidaturas no painel do trabalhador.',
+      },
+    ],
   });
 }
 
@@ -90,7 +90,7 @@ function getTermos(res) {
 
       5. RESPONSABILIDADES
       O Governo do Estado não se responsabiliza por contratações realizadas entre usuários.
-    `
+    `,
   });
 }
 
@@ -117,6 +117,6 @@ function getPoliticas(res) {
 
       6. CONTATO
       Para dúvidas sobre privacidade: geracaoemprego@sedi.ro.gov.br
-    `
+    `,
   });
 }

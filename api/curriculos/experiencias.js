@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   const user = await getUser(req);
   if (!user) {
@@ -61,7 +61,7 @@ async function addExperiencia(req, res, user) {
         data_inicio,
         data_fim: atual ? null : data_fim,
         atual,
-        descricao
+        descricao,
       }])
       .select()
       .single();

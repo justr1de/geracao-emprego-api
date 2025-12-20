@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   switch (req.method) {
     case 'GET':
@@ -22,14 +22,14 @@ async function getCurriculos(req, res) {
       return errorResponse(res, 401, 'Não autorizado');
     }
 
-    const { 
-      cidade, 
+    const {
+      cidade,
       estado,
       habilidade,
       escolaridade,
       busca,
-      page = 1, 
-      limit = 20 
+      page = 1,
+      limit = 20,
     } = req.query;
 
     let query = supabase
@@ -37,9 +37,9 @@ async function getCurriculos(req, res) {
       .select('*', { count: 'exact' });
 
     // Aplicar filtros
-    if (cidade) query = query.eq('cidade', cidade);
-    if (estado) query = query.eq('estado', estado);
-    if (busca) query = query.or(`nome_completo.ilike.%${busca}%`);
+    if (cidade) { query = query.eq('cidade', cidade); }
+    if (estado) { query = query.eq('estado', estado); }
+    if (busca) { query = query.or(`nome_completo.ilike.%${busca}%`); }
 
     // Paginação
     const offset = (parseInt(page) - 1) * parseInt(limit);
@@ -52,9 +52,9 @@ async function getCurriculos(req, res) {
     }
 
     // Remover dados sensíveis
-    const curriculos = data.map(c => ({
+    const curriculos = data.map((c) => ({
       ...c,
-      cpf: c.cpf ? `***.***.${c.cpf.slice(-5, -2)}-**` : null
+      cpf: c.cpf ? `***.***.${c.cpf.slice(-5, -2)}-**` : null,
     }));
 
     return successResponse(res, {
@@ -62,7 +62,7 @@ async function getCurriculos(req, res) {
       total: count,
       page: parseInt(page),
       limit: parseInt(limit),
-      totalPages: Math.ceil(count / parseInt(limit))
+      totalPages: Math.ceil(count / parseInt(limit)),
     });
 
   } catch (error) {
@@ -100,8 +100,8 @@ async function createCurriculo(req, res) {
         .eq('user_id', user.id)
         .select()
         .single();
-      
-      if (error) throw error;
+
+      if (error) { throw error; }
       result = data;
     } else {
       // Inserir
@@ -110,8 +110,8 @@ async function createCurriculo(req, res) {
         .insert([curriculoData])
         .select()
         .single();
-      
-      if (error) throw error;
+
+      if (error) { throw error; }
       result = data;
     }
 

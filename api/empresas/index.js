@@ -2,7 +2,7 @@ import { supabase, getUser, errorResponse, successResponse, handleCors } from '.
 
 export default async function handler(req, res) {
   // Handle CORS preflight
-  if (handleCors(req, res)) return;
+  if (handleCors(req, res)) { return; }
 
   switch (req.method) {
     case 'GET':
@@ -17,12 +17,12 @@ export default async function handler(req, res) {
 // Listar empresas com filtros
 async function getEmpresas(req, res) {
   try {
-    const { 
-      cidade, 
+    const {
+      cidade,
       setor,
       busca,
-      page = 1, 
-      limit = 20 
+      page = 1,
+      limit = 20,
     } = req.query;
 
     let query = supabase
@@ -30,9 +30,9 @@ async function getEmpresas(req, res) {
       .select('*', { count: 'exact' });
 
     // Aplicar filtros
-    if (cidade) query = query.eq('cidade', cidade);
-    if (setor) query = query.eq('setor', setor);
-    if (busca) query = query.ilike('nome', `%${busca}%`);
+    if (cidade) { query = query.eq('cidade', cidade); }
+    if (setor) { query = query.eq('setor', setor); }
+    if (busca) { query = query.ilike('nome', `%${busca}%`); }
 
     // Paginação
     const offset = (parseInt(page) - 1) * parseInt(limit);
@@ -52,7 +52,7 @@ async function getEmpresas(req, res) {
       total: count,
       page: parseInt(page),
       limit: parseInt(limit),
-      totalPages: Math.ceil(count / parseInt(limit))
+      totalPages: Math.ceil(count / parseInt(limit)),
     });
 
   } catch (error) {
@@ -78,7 +78,7 @@ async function createEmpresa(req, res) {
       setor,
       sobre,
       logo_url,
-      banner_url
+      banner_url,
     } = req.body;
 
     // Validações
@@ -98,7 +98,7 @@ async function createEmpresa(req, res) {
         setor,
         sobre,
         logo_url,
-        banner_url
+        banner_url,
       }])
       .select()
       .single();

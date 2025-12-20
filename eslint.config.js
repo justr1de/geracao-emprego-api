@@ -4,7 +4,7 @@ import globals from 'globals';
 export default [
   // Base configuration
   js.configs.recommended,
-  
+
   // Global settings
   {
     languageOptions: {
@@ -16,7 +16,7 @@ export default [
       },
     },
   },
-  
+
   // Main rules for all JS files
   {
     files: ['**/*.js'],
@@ -29,7 +29,7 @@ export default [
       'no-duplicate-imports': 'error',
       'no-template-curly-in-string': 'warn',
       'no-unreachable-loop': 'error',
-      
+
       // ===========================
       // Best Practices
       // ===========================
@@ -51,20 +51,20 @@ export default [
       'prefer-promise-reject-errors': 'error',
       'require-await': 'warn',
       'yoda': 'error',
-      
+
       // ===========================
       // Variables
       // ===========================
       'no-shadow': 'warn',
-      'no-unused-vars': ['warn', { 
+      'no-unused-vars': ['warn', {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',
       }],
-      'no-use-before-define': ['error', { 
-        functions: false, 
+      'no-use-before-define': ['error', {
+        functions: false,
         classes: true,
       }],
-      
+
       // ===========================
       // Stylistic Issues
       // ===========================
@@ -82,8 +82,8 @@ export default [
       'key-spacing': ['error', { beforeColon: false, afterColon: true }],
       'keyword-spacing': ['error', { before: true, after: true }],
       'linebreak-style': ['error', 'unix'],
-      'max-len': ['warn', { 
-        code: 120, 
+      'max-len': ['warn', {
+        code: 120,
         ignoreUrls: true,
         ignoreStrings: true,
         ignoreTemplateLiterals: true,
@@ -104,14 +104,13 @@ export default [
       'space-in-parens': ['error', 'never'],
       'space-infix-ops': 'error',
       'spaced-comment': ['error', 'always'],
-      
+
       // ===========================
       // ES6+ Features
       // ===========================
       'arrow-body-style': ['warn', 'as-needed'],
       'arrow-parens': ['error', 'always'],
       'arrow-spacing': ['error', { before: true, after: true }],
-      'no-duplicate-imports': 'error',
       'no-useless-computed-key': 'error',
       'no-useless-constructor': 'error',
       'no-useless-rename': 'error',
@@ -130,7 +129,7 @@ export default [
       'template-curly-spacing': ['error', 'never'],
     },
   },
-  
+
   // API handlers specific rules
   {
     files: ['api/**/*.js'],
@@ -139,7 +138,7 @@ export default [
       'require-await': 'off', // API handlers may not always need await
     },
   },
-  
+
   // Test files specific rules
   {
     files: ['**/*.test.js', '**/*.spec.js', 'tests/**/*.js'],
@@ -148,7 +147,7 @@ export default [
       'max-len': 'off',
     },
   },
-  
+
   // Ignore patterns
   {
     ignores: [
